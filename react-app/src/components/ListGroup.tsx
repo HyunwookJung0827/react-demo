@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { MouseEvent } from "react";
 
 function ListGroup() {
   /*In react, a component cannot return more than one element.
@@ -45,14 +46,91 @@ function ListGroup() {
     </>
 
     What if you want to have your list components dynamically?
-    */
-  const items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+    
+  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+  items = [];
+  if (items.length === 0)
+    return (
+      <>
+        <h1>List</h1>
+        <p>No item found</p>
+      </>
+    ); // But this block has some duplicatation. Can we improve on this? Yes, with conditional Rendering.
+
   return (
     <>
       <h1>List</h1>
       <ul className="list-group">
         {items.map((item) => (
+          <li key={item}>{item}</li> // key={item.id} is also widely used but remember to have a unique id for each row
+        ))}
+      </ul>
+    </>
+    
+  // [Conditional Rendering]
+
+  // We cannot use if statement inside return(). Instead, use {} to have any dynamic value
+  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+  items = [];
+
+  const getMessage = () => {
+    return items.length === 0 ? <p>No item found</p> : null;
+  };
+
+  return (
+    <>
+      <h1>List</h1>
+      {
+        getMessage() // In this way, we can have a different messages depending on different conditions/parameter!
+      }
+      <ul className="list-group">
+        {items.map((item) => (
           <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </>
+  );
+  
+
+  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+  items = [];
+
+  return (
+    <>
+      <h1>List</h1>
+      {
+        // Original: items.length === 0 ? <p>No item found</p> : null
+        items.length === 0 && <p>No item found</p> 
+        // if items.length is 0, it's 'true && <p></p> => <p></p>'
+        // if items.length isn't zero, it's 'false && <p></p> => false'
+      }
+      <ul className="list-group">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </>
+  );
+  */
+
+  // [handling event]
+  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+
+  // Event handler
+  const handleClick = (event: MouseEvent) => console.log(event) // Type annotation, specify the parameter type
+  return (
+    <>
+      <h1>List</h1>
+      {items.length === 0 && <p>No item found</p>}
+      <ul className="list-group">
+        {items.map((item, index) => (
+          <li
+            className="list-group-item"
+            key={item}
+            onClick={handleClick} // When the user clicks, this function should be called.
+          >
+            {item}
+          </li>
         ))}
       </ul>
     </>
