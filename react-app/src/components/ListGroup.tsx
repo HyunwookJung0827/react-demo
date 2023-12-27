@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { MouseEvent } from "react";
+import { useState } from "react";
 
 function ListGroup() {
   /*In react, a component cannot return more than one element.
@@ -113,6 +114,7 @@ function ListGroup() {
   );
   */
 
+  /*
   // [handling event]
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
 
@@ -135,6 +137,45 @@ function ListGroup() {
       </ul>
     </>
   );
+  */
+  // [Managing State]
+  // When we click, we want to highlight it. We have a CSS class in bootstrap called active
+  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+  //let selectedIndex = 0;
+  // Hook: a function that allows us to tap into built-in features in React
+  // state hook for variables that changes the state or data over time
+
+  // const arr = useState(-1); // -1 for initial value
+  // arr[0] // variable (selectedIndex)
+  // arr[1] // updater function to update arr[0] variable
+
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const handleClick = (event: MouseEvent) => console.log(event);
+  return (
+    <>
+      <h1>List</h1>
+      {items.length === 0 && <p>No item found</p>}
+      <ul className="list-group">
+        {items.map((item, index) => (
+          <li
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => {
+              // selectedIndex = index; doesn't work because 
+              setSelectedIndex(index); // works
+            }}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
+  ); // Each component has its own state. If we have two ListGroups, one selectedIndex won't affect the other ListGroup
 }
 
 export default ListGroup;
