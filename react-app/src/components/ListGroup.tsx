@@ -191,6 +191,7 @@ interface Props {
 function ListGroup({ items, heading, onSelectItem }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
+
   const handleClick = (event: MouseEvent) => console.log(event);
   return (
     <>
@@ -218,5 +219,9 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
     </>
   );
 }
-
+// [Props                       VS State]
+// Input passed to a component  VS Data managed by a component
+// Similar to function args     VS Similar to local variables
+// Immutable(read-only)         VS Mutable
+// Both cause a re-render
 export default ListGroup;
