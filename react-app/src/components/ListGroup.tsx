@@ -114,7 +114,7 @@ import { useState } from "react";
   );
   */
 
-  /*
+/*
   // [handling event]
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
 
@@ -179,43 +179,44 @@ import { useState } from "react";
 export default ListGroup;
 
   */
-
 // [Passing Data Via Props] : We want to reuse the components
 // { item: [], heading: string}
 interface Props {
-    items: string[];
-    heading: string;
+  items: string[];
+  heading: string;
+  // (item: string) => void
+  onSelectItem: (item: string) => void; // onClick
 }
 
-function ListGroup({ items, heading }: Props) {
-    const [selectedIndex, setSelectedIndex] = useState(-1);
+function ListGroup({ items, heading, onSelectItem }: Props) {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
-    const handleClick = (event: MouseEvent) => console.log(event);
-    return (
-        <>
-          <h1>{heading}</h1>
-          {items.length === 0 && <p>No item found</p>}
-          <ul className="list-group">
-            {items.map((item, index) => (
-              <li
-                className={
-                  selectedIndex === index
-                    ? "list-group-item active"
-                    : "list-group-item"
-                }
-                key={item}
-                onClick={() => {
-                  // selectedIndex = index; doesn't work because 
-                  setSelectedIndex(index); // works
-                }}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </>
-      );
+  const handleClick = (event: MouseEvent) => console.log(event);
+  return (
+    <>
+      <h1>{heading}</h1>
+      {items.length === 0 && <p>No item found</p>}
+      <ul className="list-group">
+        {items.map((item, index) => (
+          <li
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => {
+              // selectedIndex = index; doesn't work because
+              setSelectedIndex(index); // works
+              onSelectItem(item);
+            }}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }
-
 
 export default ListGroup;
