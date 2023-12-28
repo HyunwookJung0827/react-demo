@@ -35,7 +35,7 @@ function App() {
 export default App;
 */
 
-
+/*
 import Alert from "./components/Alert";
 
 // [Passing Children]
@@ -46,6 +46,20 @@ function App() {
       <Alert> 
         Hello <span>world</span>
       </Alert> 
+    </div>
+  );
+}
+export default App;
+*/
+
+import Button from "./components/Button";
+
+// [Passing Children]
+
+function App() {
+  return (
+    <div>
+      <Button color="danger" onClick={() => console.log('talkative')}>by button</Button>
     </div>
   );
 }
