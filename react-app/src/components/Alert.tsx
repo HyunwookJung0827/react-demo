@@ -29,13 +29,35 @@ const Alert = ({ text } : Props) => {
   
   export default Alert 
 */
-
+/*
 interface Props {
   children: ReactNode; // children: special prop that all components support
   // ReactNode: special type that supports complex parameter like html block 
 }
 const Alert = ({ children }: Props) => {
   return <div className="alert alert-primary">{children}</div>;
+};
+
+export default Alert;
+*/
+
+interface Props {
+  children: ReactNode;
+  onClose: () => void;
+}
+const Alert = ({ children, onClose }: Props) => {
+  return (
+    <div className="alert alert-warning alert-dismissible ">
+      {children}
+      <button
+        type="button"
+        className="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        onClick={onClose}
+      ></button>
+    </div>
+  );
 };
 
 export default Alert;

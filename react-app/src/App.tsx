@@ -53,13 +53,27 @@ export default App;
 */
 
 import Button from "./components/Button";
-
+import Alert from "./components/Alert";
+import { useState } from "react";
 // [Passing Children]
-
+/*
 function App() {
   return (
     <div>
       <Button color="danger" onClick={() => console.log('talkative')}>by button</Button>
+    </div>
+  );
+}
+export default App;
+*/
+// [Exercise: Showing an Alert]
+function App() {
+  const [alertVisible, setAlertVisibility] = useState(false);
+  // Render Alert only if alertVisible is true
+  return (
+    <div>
+      {alertVisible && <Alert onClose={() => setAlertVisibility(false)}>Very alert</Alert>} 
+      <Button color="danger" onClick={() => setAlertVisibility(true)}>By button</Button>
     </div>
   );
 }
