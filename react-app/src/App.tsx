@@ -1,4 +1,4 @@
-import ListGroup from "./components/ListGroup";
+/*import ListGroup from "./components/ListGroup";
 
 function App() {
   let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -16,4 +16,37 @@ function App() {
   );
 }
 
+export default App;
+*/
+/*
+import Alert from "./components/Alert";
+
+// [Passing Children]
+
+function App() {
+  return (
+    <div>
+      <Alert text="helou World"/> 
+    </div>
+  );
+}
+// But kinda ugly if you want to put a full text
+// Instead, we can pass children
+export default App;
+*/
+
+
+import Alert from "./components/Alert";
+
+// [Passing Children]
+
+function App() {
+  return (
+    <div>
+      <Alert> 
+        Hello <span>world</span>
+      </Alert> 
+    </div>
+  );
+}
 export default App;

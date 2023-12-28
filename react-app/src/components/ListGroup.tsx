@@ -224,4 +224,7 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
 // Similar to function args     VS Similar to local variables
 // Immutable(read-only)         VS Mutable
 // Both cause a re-render
+
+// [Passing Children]
+// Sometimes we want to pass children to a component
 export default ListGroup;
