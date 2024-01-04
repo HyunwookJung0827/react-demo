@@ -57,6 +57,7 @@ import Alert from "./components/Alert";
 import { useState } from "react";
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
+import Form from "./components/Form";
 // [Passing Children]
 /*
 function App() {
@@ -317,23 +318,30 @@ function App() {
 //   )
 // }
 // [13-Exercise: Building an ExpandableText Component]
-import ExpandableText from "./components/ExpandableText";
+// import ExpandableText from "./components/ExpandableText";
+// function App() {
+//   return (
+//     <div>
+//       <ExpandableText>
+//         Lorem ipsum dolor sit amet consectetur adipisicing elit. Error earum,
+//         atque totam numquam vitae inventore! Blanditiis ipsam consequatur
+//         quisquam numquam labore eius nobis culpa laborum magnam, aut fugit ea id
+//         sint voluptatem illo dolore hic nesciunt dignissimos excepturi eum quis
+//         debitis? Blanditiis minus similique tempora quibusdam necessitatibus
+//         pariatur obcaecati, quaerat ab aliquid esse! Natus, unde consequatur?
+//         Dolorum eligendi non quos magnam placeat rerum provident officia odit
+//         minus exercitationem libero veniam voluptatum et, repudiandae saepe
+//         itaque, consectetur nemo beatae repellendus ullam. Corporis perferendis,
+//         molestiae corrupti nam maxime velit explicabo dolore eveniet? Facilis
+//         eligendi vel optio eum iure animi doloremque ea iusto.
+//       </ExpandableText>
+//     </div>
+//   );
+// }
 function App() {
   return (
     <div>
-      <ExpandableText>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error earum,
-        atque totam numquam vitae inventore! Blanditiis ipsam consequatur
-        quisquam numquam labore eius nobis culpa laborum magnam, aut fugit ea id
-        sint voluptatem illo dolore hic nesciunt dignissimos excepturi eum quis
-        debitis? Blanditiis minus similique tempora quibusdam necessitatibus
-        pariatur obcaecati, quaerat ab aliquid esse! Natus, unde consequatur?
-        Dolorum eligendi non quos magnam placeat rerum provident officia odit
-        minus exercitationem libero veniam voluptatum et, repudiandae saepe
-        itaque, consectetur nemo beatae repellendus ullam. Corporis perferendis,
-        molestiae corrupti nam maxime velit explicabo dolore eveniet? Facilis
-        eligendi vel optio eum iure animi doloremque ea iusto.
-      </ExpandableText>
+      <Form />
     </div>
   );
 }
