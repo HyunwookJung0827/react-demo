@@ -12,3 +12,8 @@ https://github.com/HyunwookJung0827/react-demo/assets/90017772/b9338a5b-4ae0-4ce
 
 https://github.com/HyunwookJung0827/react-demo/assets/90017772/941c1737-70d6-4ab0-817d-21be5198148d
 
+[1/5/2024] Beginner's course 50%
+
+[Project: Expense Tracker]
+https://github.com/HyunwookJung0827/react-demo/assets/90017772/2d7b2a56-2b4a-4083-abb1-c9691a09a956
+
