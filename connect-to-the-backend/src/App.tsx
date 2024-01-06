@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 import ProductList from "./components/ProductList";
 
 // [2-Understanding the Effect Hook]
@@ -34,7 +34,6 @@ import ProductList from "./components/ProductList";
 // function App() {
 //   const [category, setCategory] = useState('');
 
-
 //   return <div>
 //     <select className="form-select" onChange={(event) => setCategory(event.target.value)}>
 //       <option value=""></option>
@@ -44,24 +43,48 @@ import ProductList from "./components/ProductList";
 //     <ProductList category={category}/>
 //   </div>
 // }
+
 // [4-Effect Clean Up]
 // Sometimes the code that we pass to the effect hook doesn't need any cleanup.
-// EX) The user navigates away from the chat page, we have to disconnect 
+// EX) The user navigates away from the chat page, we have to disconnect
 // from the chat server.
-const connect = () => console.log('Connecting');
-const disconnect = () => console.log('Disconnecting');
 
+// const connect = () => console.log('Connecting');
+// const disconnect = () => console.log('Disconnecting');
+
+// function App() {
+//   useEffect(( ) => {
+//     connect();
+
+//     return () => disconnect();
+//     // This is normally how we cleanup after effect hook.
+//     // Generally, stop or undo the effects
+//   })
+
+//   return <div>
+//   </div>
+// }
+
+// [5-Fetching Data]
+
+import axios from "axios";
+
+interface User {
+  id: number;
+  name: string;
+}
 function App() {
-  useEffect(( ) => {
-    connect();
+  const [users, setUsers] = useState<User[]>([]);
 
-    return () => disconnect();
-    // This is normally how we cleanup after effect hook.
-    // Generally, stop or undo the effects 
-  })
-
-
-  return <div>
-  </div>
+  useEffect(() => {
+    // This will return Promise
+    // : An object that holds the eventual result or failure of an asynchronous operation
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users")
+      .then((res) => setUsers(res.data));
+  }, []);
+  return <ul>
+    {users.map(user => <li key={user.id}>{user.name}</li>)}
+  </ul>;
 }
 export default App;
