@@ -31,18 +31,37 @@ import ProductList from "./components/ProductList";
 
 // [3-Effect Dependencies]
 // What if we want more control of effect hook instead of after every render?
+// function App() {
+//   const [category, setCategory] = useState('');
+
+
+//   return <div>
+//     <select className="form-select" onChange={(event) => setCategory(event.target.value)}>
+//       <option value=""></option>
+//       <option value="Clothing">Clothing</option>
+//       <option value="Household">Household</option>
+//     </select>
+//     <ProductList category={category}/>
+//   </div>
+// }
+// [4-Effect Clean Up]
+// Sometimes the code that we pass to the effect hook doesn't need any cleanup.
+// EX) The user navigates away from the chat page, we have to disconnect 
+// from the chat server.
+const connect = () => console.log('Connecting');
+const disconnect = () => console.log('Disconnecting');
+
 function App() {
-  const [category, setCategory] = useState('');
+  useEffect(( ) => {
+    connect();
+
+    return () => disconnect();
+    // This is normally how we cleanup after effect hook.
+    // Generally, stop or undo the effects 
+  })
 
 
   return <div>
-    <select className="form-select" onChange={(event) => setCategory(event.target.value)}>
-      <option value=""></option>
-      <option value="Clothing">Clothing</option>
-      <option value="Household">Household</option>
-    </select>
-    <ProductList category={category}/>
   </div>
 }
-
-export default App
+export default App;
