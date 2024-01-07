@@ -102,7 +102,50 @@ import ProductList from "./components/ProductList";
 // [8-Working with Async and Await]
 // Some people don't like .then method of useEffect.
 // Let's rewrite this code without then and catch method.
-import axios, { AxiosError } from "axios";
+// import axios, { AxiosError } from "axios";
+
+// interface User {
+//   id: number;
+//   name: string;
+// }
+// function App() {
+//   const [users, setUsers] = useState<User[]>([]);
+//   const [error, setError] = useState("");
+
+//   useEffect(() => {
+//     // async () to make this async. But still doesn' work because react doesn't allow us to pass an async function to the effect hook.
+//     const fetchUsers = async () => {
+//       try {
+
+//         const res = await axios // await function is only allowed  within async functions and at the top of the module
+//         .get<User[]>("https://jsonplaceholder.typicode.com/xusers");
+//       // get -> await promise -> res / err
+//       setUsers(res.data);
+//       }
+//       catch (err) {
+//         setError((err as AxiosError).message);
+//       }
+
+//     };
+//     fetchUsers();
+//   }, []);
+//   return (
+//     <>
+//       {error && <p className="text-danger">{error}</p>}
+
+//       <ul>
+//         {users.map((user) => (
+//           <li key={user.id}>{user.name}</li>
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
+// Not that elegant. We have to make more functions, more nested {}, format introduced.
+
+// [9-Canceling a Fetch Request]
+// What if the user leaves the page? We cancel our fetch request with our cleanup function
+import axios, { AxiosError, CanceledError } from "axios";
 
 interface User {
   id: number;
@@ -110,28 +153,24 @@ interface User {
 }
 function App() {
   const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    // async () to make this async. But still doesn' work because react doesn't allow us to pass an async function to the effect hook.
-    const fetchUsers = async () => {
-      try {
-
-        const res = await axios // await function is only allowed  within async functions and at the top of the module
-        .get<User[]>("https://jsonplaceholder.typicode.com/xusers");
-      // get -> await promise -> res / err
-      setUsers(res.data);
-      }
-      catch (err) {
-        setError((err as AxiosError).message);
-      }
-
-    };
-    fetchUsers();
+    useEffect(() => {
+      const controller = new AbortController(); // cancel or abort asynchronous operations like fetch requests, 
+      // DOM manipulation or any other operations that take a long enough time
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", { signal: controller.signal})
+      .then((res) => setUsers(res.data))
+      .catch((err) => {
+        if (err instanceof CanceledError) return; // If err is an instance of CanceledError, return immediately
+        setError(err.message)});
+      
+      return () => controller.abort(); // cleanup function
   }, []);
+
   return (
     <>
-      {error && <p className="text-danger">{error}</p>}
+      {error && <p className='text-danger'>{error}</p>}
 
       <ul>
         {users.map((user) => (
@@ -141,5 +180,4 @@ function App() {
     </>
   );
 }
-// Not that elegant. We have to make more functions, more nested {}, format introduced.
 export default App;
