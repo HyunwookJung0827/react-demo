@@ -248,7 +248,98 @@ import "bootstrap/dist/css/bootstrap.css";
 // }
 
 // [11-Deleting Data, 12-Creating Data, 13-Updating Data]
-import axios, { AxiosError, CanceledError } from "axios";
+// import axios, { AxiosError, CanceledError } from "axios";
+
+// interface User {
+//   id: number;
+//   name: string;
+// }
+// function App() {
+//   const [users, setUsers] = useState<User[]>([]);
+//   const [error, setError] = useState("");
+//   const [isLoading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     const controller = new AbortController();
+
+//     setLoading(true);
+//     axios
+//       .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+//         signal: controller.signal,
+//       })
+//       .then((res) => {
+//         setUsers(res.data);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         if (err instanceof CanceledError) return;
+//         setError(err.message);
+//         setLoading(false);
+//       });
+
+//     return () => controller.abort();
+//   }, []);
+
+//   const deleteUser = (user: User) => {
+//     const originalUsers = [...users];
+//     // Pessimistic Update: Call the server and Update the UI - slow
+//     // Optimistic Update: Update the UI and Call the server - fast
+//     setUsers(users.filter((u) => u.id !== user.id));
+
+//     // Now call the server
+//     axios
+//       .delete("https://jsonplaceholder.typicode.com/users" + user.id)
+//       // we don't need then this case
+//       .catch((err) => {
+//         setError(err.message);
+//         setUsers(originalUsers); // if error, recover the original state
+//       });
+//   };
+
+//   const updateUser = (user: User) => {
+//     const originalUsers = [...users];
+//     const updatedUser = {...user, name: user.name + '!'};
+//     setUsers(users.map(u => u.id === user.id ? updatedUser : u))
+
+//     // Now call the server to save the changes
+//     // 1. .put: replacing an object
+//     // 2. .patch: patching more than one properties (not supported to some server)
+//     axios.patch("https://jsonplaceholder.typicode.com/users/" + user.id, updatedUser)
+//     .catch(err => {
+//       setError(err.message);
+//       setUsers(originalUsers);
+//     });
+//   }
+
+//   return (
+//     <>
+//       {error && <p className="text-danger">{error}</p>}
+//       {isLoading && <div className="spinner-border"></div>}
+//       <ul className="list-group">
+//         {users.map((user) => (
+//           <li
+//             key={user.id}
+//             className="list-group-item d-flex justify-content-between"
+//           >
+//             {user.name}
+//             <div>
+//               <button className="btn-outline-secondary mx-1" onClick={() => updateUser(user)}>Update</button>
+//               <button
+//                 className="btn btn-outline-danger"
+//                 onClick={() => deleteUser(user)}
+//               >
+//                 Delete
+//               </button>
+//             </div>
+//           </li>
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
+
+// [14-Extracting a Reusable API Client]
+import apiClient, { CanceledError } from "./services/api-client";
 
 interface User {
   id: number;
@@ -263,8 +354,9 @@ function App() {
     const controller = new AbortController();
 
     setLoading(true);
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+    //axios
+    apiClient
+      .get<User[]>("/users", {
         signal: controller.signal,
       })
       .then((res) => {
@@ -282,34 +374,44 @@ function App() {
 
   const deleteUser = (user: User) => {
     const originalUsers = [...users];
-    // Pessimistic Update: Call the server and Update the UI - slow
-    // Optimistic Update: Update the UI and Call the server - fast
     setUsers(users.filter((u) => u.id !== user.id));
 
     // Now call the server
-    axios
-      .delete("https://jsonplaceholder.typicode.com/users" + user.id)
-      // we don't need then this case
+    //axios
+    apiClient
+      .delete("/users/" + user.id)
       .catch((err) => {
         setError(err.message);
-        setUsers(originalUsers); // if error, recover the original state
+        setUsers(originalUsers); 
       });
   };
 
+  // const addUser = () => {
+  //   const originalUsers = [...users];
+  //   const newUser = {id: 0, name: "Hyunwook"};
+  //   setUsers([newUser, ...users]);
+
+  //   apiClient
+  //   .post("/users", newUser)
+  //   .then(({data: savedUser}))
+  // }
+
   const updateUser = (user: User) => {
     const originalUsers = [...users];
-    const updatedUser = {...user, name: user.name + '!'};
-    setUsers(users.map(u => u.id === user.id ? updatedUser : u))
+    const updatedUser = { ...user, name: user.name + "!" };
+    setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    // Now call the server to save the changes
-    // 1. .put: replacing an object
-    // 2. .patch: patching more than one properties (not supported to some server)
-    axios.patch("https://jsonplaceholder.typicode.com/users/" + user.id, updatedUser)
-    .catch(err => {
-      setError(err.message);
-      setUsers(originalUsers);
-    });
-  }
+    //axios
+    apiClient
+      .patch(
+        "/users/" + user.id,
+        updatedUser
+      )
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
 
   return (
     <>
@@ -323,7 +425,12 @@ function App() {
           >
             {user.name}
             <div>
-              <button className="btn-outline-secondary mx-1" onClick={() => updateUser(user)}>Update</button>
+              <button
+                className="btn-outline-secondary mx-1"
+                onClick={() => updateUser(user)}
+              >
+                Update
+              </button>
               <button
                 className="btn btn-outline-danger"
                 onClick={() => deleteUser(user)}
