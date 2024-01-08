@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ProductList from "./components/ProductList";
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 
 // [2-Understanding the Effect Hook]
 // function App() {
@@ -145,6 +147,43 @@ import ProductList from "./components/ProductList";
 
 // [9-Canceling a Fetch Request]
 // What if the user leaves the page? We cancel our fetch request with our cleanup function
+// import axios, { AxiosError, CanceledError } from "axios";
+
+// interface User {
+//   id: number;
+//   name: string;
+// }
+// function App() {
+//   const [users, setUsers] = useState<User[]>([]);
+//   const [error, setError] = useState('');
+
+//     useEffect(() => {
+//       const controller = new AbortController(); // cancel or abort asynchronous operations like fetch requests,
+//       // DOM manipulation or any other operations that take a long enough time
+//     axios
+//       .get<User[]>("https://jsonplaceholder.typicode.com/users", { signal: controller.signal})
+//       .then((res) => setUsers(res.data))
+//       .catch((err) => {
+//         if (err instanceof CanceledError) return; // If err is an instance of CanceledError, return immediately
+//         setError(err.message)});
+
+//       return () => controller.abort(); // cleanup function
+//   }, []);
+
+//   return (
+//     <>
+//       {error && <p className='text-danger'>{error}</p>}
+
+//       <ul>
+//         {users.map((user) => (
+//           <li key={user.id}>{user.name}</li>
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
+
+// [10-Showing a Loading Indicator]
 import axios, { AxiosError, CanceledError } from "axios";
 
 interface User {
@@ -153,24 +192,51 @@ interface User {
 }
 function App() {
   const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
-    useEffect(() => {
-      const controller = new AbortController(); // cancel or abort asynchronous operations like fetch requests, 
-      // DOM manipulation or any other operations that take a long enough time
+  useEffect(() => {
+    const controller = new AbortController();
+
+    setLoading(true); // Is loading right now
     axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users", { signal: controller.signal})
-      .then((res) => setUsers(res.data))
+      .get<User[]>("https://jsonplaceholder.typicode.com/xusers", {
+        signal: controller.signal,
+      })
+      .then((res) => {
+        setUsers(res.data);
+        setLoading(false);
+      })
       .catch((err) => {
-        if (err instanceof CanceledError) return; // If err is an instance of CanceledError, return immediately
-        setError(err.message)});
-      
-      return () => controller.abort(); // cleanup function
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setLoading(false);
+      });
+    // axios
+    //   .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+    //     signal: controller.signal,
+    //   })
+    //   .then((res) => {
+    //     setUsers(res.data);
+    //     setLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     if (err instanceof CanceledError) return;
+    //     setError(err.message);
+    //     setLoading(false);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   }); // executed when our promise is settled
+    //   // However, this doesn't work with the strict mode turned on
+
+    return () => controller.abort();
   }, []);
 
   return (
     <>
-      {error && <p className='text-danger'>{error}</p>}
+      {error && <p className="text-danger">{error}</p>}
+      {isLoading && <div className="spinner-border"></div>}
 
       <ul>
         {users.map((user) => (
