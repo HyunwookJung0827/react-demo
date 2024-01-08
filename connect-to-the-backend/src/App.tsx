@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ProductList from "./components/ProductList";
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 // [2-Understanding the Effect Hook]
 // function App() {
@@ -184,6 +184,70 @@ import 'bootstrap/dist/css/bootstrap.css';
 // }
 
 // [10-Showing a Loading Indicator]
+// import axios, { AxiosError, CanceledError } from "axios";
+
+// interface User {
+//   id: number;
+//   name: string;
+// }
+// function App() {
+//   const [users, setUsers] = useState<User[]>([]);
+//   const [error, setError] = useState("");
+//   const [isLoading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     const controller = new AbortController();
+
+//     setLoading(true); // Is loading right now
+//     axios
+//       .get<User[]>("https://jsonplaceholder.typicode.com/xusers", {
+//         signal: controller.signal,
+//       })
+//       .then((res) => {
+//         setUsers(res.data);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         if (err instanceof CanceledError) return;
+//         setError(err.message);
+//         setLoading(false);
+//       });
+//     // axios
+//     //   .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+//     //     signal: controller.signal,
+//     //   })
+//     //   .then((res) => {
+//     //     setUsers(res.data);
+//     //     setLoading(false);
+//     //   })
+//     //   .catch((err) => {
+//     //     if (err instanceof CanceledError) return;
+//     //     setError(err.message);
+//     //     setLoading(false);
+//     //   })
+//     //   .finally(() => {
+//     //     setLoading(false);
+//     //   }); // executed when our promise is settled
+//     //   // However, this doesn't work with the strict mode turned on
+
+//     return () => controller.abort();
+//   }, []);
+
+//   return (
+//     <>
+//       {error && <p className="text-danger">{error}</p>}
+//       {isLoading && <div className="spinner-border"></div>}
+
+//       <ul>
+//         {users.map((user) => (
+//           <li key={user.id}>{user.name}</li>
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
+
+// [11-Deleting Data]
 import axios, { AxiosError, CanceledError } from "axios";
 
 interface User {
@@ -198,9 +262,9 @@ function App() {
   useEffect(() => {
     const controller = new AbortController();
 
-    setLoading(true); // Is loading right now
+    setLoading(true);
     axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/xusers", {
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
         signal: controller.signal,
       })
       .then((res) => {
@@ -212,35 +276,38 @@ function App() {
         setError(err.message);
         setLoading(false);
       });
-    // axios
-    //   .get<User[]>("https://jsonplaceholder.typicode.com/users", {
-    //     signal: controller.signal,
-    //   })
-    //   .then((res) => {
-    //     setUsers(res.data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     if (err instanceof CanceledError) return;
-    //     setError(err.message);
-    //     setLoading(false);
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   }); // executed when our promise is settled
-    //   // However, this doesn't work with the strict mode turned on
 
     return () => controller.abort();
   }, []);
+
+  const deleteUser = (user: User) => {
+    const originalUsers = [...users];
+    // Pessimistic Update: Call the server and Update the UI - slow
+    // Optimistic Update: Update the UI and Call the server - fast
+    setUsers(users.filter(u=>u.id !== user.id));
+
+    // Now call the server
+    axios.delete('https://jsonplaceholder.typicode.com/xusers' + user.id)
+    // we don't need then this case
+    .catch(err => {
+      setError(err.message);
+      setUsers(originalUsers);
+
+    })
+
+
+  }
 
   return (
     <>
       {error && <p className="text-danger">{error}</p>}
       {isLoading && <div className="spinner-border"></div>}
-
-      <ul>
+      <ul className="list-group">
         {users.map((user) => (
-          <li key={user.id}>{user.name}</li>
+          <li key={user.id} className="list-group-item d-flex justify-content-between">
+            {user.name}
+            <button className="btn btn-outline-danger" onClick={()=> deleteUser(user)}>Delete</button>
+          </li>
         ))}
       </ul>
     </>
