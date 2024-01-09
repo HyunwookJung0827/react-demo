@@ -339,26 +339,131 @@ import "bootstrap/dist/css/bootstrap.css";
 // }
 
 // [14-Extracting a Reusable API Client]
-import apiClient, { CanceledError } from "./services/api-client";
+// import apiClient, { CanceledError } from "./services/api-client";
 
-interface User {
-  id: number;
-  name: string;
-}
+// interface User {
+//   id: number;
+//   name: string;
+// }
+// function App() {
+//   const [users, setUsers] = useState<User[]>([]);
+//   const [error, setError] = useState("");
+//   const [isLoading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     const controller = new AbortController();
+
+//     setLoading(true);
+//     //axios
+//     apiClient
+//       .get<User[]>("/users", {
+//         signal: controller.signal,
+//       })
+//       .then((res) => {
+//         setUsers(res.data);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         if (err instanceof CanceledError) return;
+//         setError(err.message);
+//         setLoading(false);
+//       });
+
+//     return () => controller.abort();
+//   }, []);
+
+//   const deleteUser = (user: User) => {
+//     const originalUsers = [...users];
+//     setUsers(users.filter((u) => u.id !== user.id));
+
+//     // Now call the server
+//     //axios
+//     apiClient
+//       .delete("/users/" + user.id)
+//       .catch((err) => {
+//         setError(err.message);
+//         setUsers(originalUsers);
+//       });
+//   };
+
+//   // const addUser = () => {
+//   //   const originalUsers = [...users];
+//   //   const newUser = {id: 0, name: "Hyunwook"};
+//   //   setUsers([newUser, ...users]);
+
+//   //   apiClient
+//   //   .post("/users", newUser)
+//   //   .then(({data: savedUser}))
+//   // }
+
+//   const updateUser = (user: User) => {
+//     const originalUsers = [...users];
+//     const updatedUser = { ...user, name: user.name + "!" };
+//     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
+
+//     //axios
+//     apiClient
+//       .patch(
+//         "/users/" + user.id,
+//         updatedUser
+//       )
+//       .catch((err) => {
+//         setError(err.message);
+//         setUsers(originalUsers);
+//       });
+//   };
+
+//   return (
+//     <>
+//       {error && <p className="text-danger">{error}</p>}
+//       {isLoading && <div className="spinner-border"></div>}
+//       <ul className="list-group">
+//         {users.map((user) => (
+//           <li
+//             key={user.id}
+//             className="list-group-item d-flex justify-content-between"
+//           >
+//             {user.name}
+//             <div>
+//               <button
+//                 className="btn-outline-secondary mx-1"
+//                 onClick={() => updateUser(user)}
+//               >
+//                 Update
+//               </button>
+//               <button
+//                 className="btn btn-outline-danger"
+//                 onClick={() => deleteUser(user)}
+//               >
+//                 Delete
+//               </button>
+//             </div>
+//           </li>
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
+
+// [15-Extracting the User Service]
+import { CanceledError } from "./services/api-client";
+// import apiClient, { CanceledError } from "./services/api-client"; All the apiClient is done by userService. This is a good separation of concern.
+import userService, { User } from "./services/user-service";
+
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
-
     setLoading(true);
-    //axios
-    apiClient
-      .get<User[]>("/users", {
-        signal: controller.signal,
-      })
+    const { request, cancel } = userService.getAllUsers(); // This returns a promise: data of all users
+    // We still have an error about controller object
+    // We don't want to export controller that is all about HTTP requests
+    // Think of a remote controller. There are complex logic in the board on the inside
+    // But as a user, we don't have to worry about that complexity
+    // The buttons hide the implementation details
+    request
       .then((res) => {
         setUsers(res.data);
         setLoading(false);
@@ -369,7 +474,8 @@ function App() {
         setLoading(false);
       });
 
-    return () => controller.abort();
+    return () => cancel();
+    // At this form, our effect hook knows absolutely nothing about making HTTP requests.
   }, []);
 
   const deleteUser = (user: User) => {
@@ -377,40 +483,38 @@ function App() {
     setUsers(users.filter((u) => u.id !== user.id));
 
     // Now call the server
-    //axios
-    apiClient
-      .delete("/users/" + user.id)
-      .catch((err) => {
-        setError(err.message);
-        setUsers(originalUsers); 
-      });
+    userService.deleteUser(user.id)
+    .catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers);
+    });
   };
 
-  // const addUser = () => {
-  //   const originalUsers = [...users];
-  //   const newUser = {id: 0, name: "Hyunwook"};
-  //   setUsers([newUser, ...users]);
+  const addUser = () => {
+    const originalUsers = [...users];
+    const newUser = {id: 0, name: "Hyunwook"};
+    setUsers([newUser, ...users]);
 
-  //   apiClient
-  //   .post("/users", newUser)
-  //   .then(({data: savedUser}))
-  // }
+    userService
+    .createUser(newUser)
+    .then(({data: savedUser}) => setUsers([savedUser, ...users]);
+    )
+    .catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers);
+    });
+  }
 
   const updateUser = (user: User) => {
     const originalUsers = [...users];
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    //axios
-    apiClient
-      .patch(
-        "/users/" + user.id,
-        updatedUser
-      )
-      .catch((err) => {
-        setError(err.message);
-        setUsers(originalUsers);
-      });
+    userService.updateUser(updatedUser)
+    .catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers);
+    });
   };
 
   return (
