@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { Button, Card, Col, ConfigProvider, DatePicker, Row, theme } from "antd";
 import NavBar from "./components/NavBar";
+import GameGrid from "./components/GameGrid";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,7 +21,7 @@ function App() {
           Aside
         </Col>
         <Col flex="auto" className="bg-blue-500">
-          Main
+          <GameGrid />
         </Col>
       </Row>
       <h1 className="text-3xl font-bold underline bg-gray-500">Hello world!</h1>
