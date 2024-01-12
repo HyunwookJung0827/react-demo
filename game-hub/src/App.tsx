@@ -1,13 +1,15 @@
 import { useState } from "react";
 import "./App.css";
 import { Col, DatePicker, Row } from "antd";
+import NavBar from "./components/NavBar";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Row className="bg-red-400">Nav</Row>
+      
+      <NavBar />
       <Row>
         <Col span={12} className="bg-amber-300 aside">
           Aside
