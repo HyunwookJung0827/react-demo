@@ -14,7 +14,7 @@ function App() {
     <ConfigProvider theme={{
       algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
     }}>
-      <NavBar/>
+      <NavBar onClick={handleClick}></NavBar>
       <Row>
         <Col span={12} className="bg-amber-300 aside">
           Aside

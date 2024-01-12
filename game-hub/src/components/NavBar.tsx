@@ -1,11 +1,15 @@
-import { Image, Row } from "antd";
+import { Col, Image, Row, Switch } from "antd";
 import logo from "../assets/Logo/logo.webp";
-
-const NavBar = () => {
+interface Props {
+  onClick: void;
+}
+const NavBar = ({ onClick }: Props) => {
   return (
-    <Row align="middle">
-      <Image src={logo} alt="Logo" width={60} />
-      NavBar
+    <Row align="middle" gutter={8}>
+        <Col className="gutter-row"><Image src={logo} alt="Logo" width={60} /></Col>
+        <Col className="gutter-row" push={20}><Switch className="bg-green-600" onChange={onClick} /> Dark Mode</Col>
+      
+      
     </Row>
   );
 };
