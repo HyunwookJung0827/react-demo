@@ -1,0 +1,9 @@
+/* Your regular styles for larger screens (PC) */
+
+/* Media query for screens with a maximum width of 767px (typical mobile devices) */
+@media (max-width: 767px) {
+    /* Styles to hide the sidebar on small screens */
+    .aside {
+      display: none;
+    }
+  }
