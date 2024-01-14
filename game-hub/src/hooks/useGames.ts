@@ -15,6 +15,7 @@ export interface Game {
     parent_platforms: { platform: Platform }[];
     // parent_platform is not an array of platform
     // It's an array of objects that has a property platform
+    metacritic: number;
   }
   interface FetchGamesResponse {
     count: number;
