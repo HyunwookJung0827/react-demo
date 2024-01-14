@@ -10,9 +10,6 @@ import './App.css';
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const handleClick = () => {
-    setIsDarkMode((previousValue) => !previousValue);
-  };
 
   const containerStyle = {
     backgroundColor: isDarkMode ? '#1a1a1a' : 'white', // Set background color based on dark mode
@@ -24,7 +21,10 @@ const App = () => {
 
   return (
     <ConfigProvider theme={{ algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
-      <NavBar onClick={handleClick} style={navBarStyle} darkMode={isDarkMode} />
+      <NavBar onClick={() => {
+        setIsDarkMode((previousValue) => !previousValue);
+      }} style={navBarStyle} darkMode={isDarkMode} />
+      
       <Row style={containerStyle}>
         <Col span={12} className="bg-amber-300 aside">
           Aside
