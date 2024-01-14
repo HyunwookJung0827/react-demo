@@ -7,3 +7,42 @@
       display: none;
     }
   }
+
+  /* App.css */
+
+/* Your existing styles */
+
+.ant-card {
+  background-color: #475569; /* Bluish grey color for the Card in dark mode */
+}
+
+.ant-card-head {
+  background-color: #2a3340; /* Darker bluish grey color for the Card's head in dark mode */
+}
+
+.ant-card-body {
+  background-color: #475569; /* Bluish grey color for the Card's body in dark mode */
+  color: white; /* Set text color to white in dark mode */
+}
+
+/* Fancy grey for GameCard in dark mode */
+.ant-config-provider-dark .ant-card {
+  background-color: #4d4d59; /* Fancy grey color for GameCard in dark mode */
+}
+
+.ant-config-provider-dark .ant-card-head {
+  background-color: #393943; /* Darker fancy grey color for GameCard's head in dark mode */
+}
+
+/* Fancy black for Col background in dark mode */
+.ant-config-provider-dark .ant-row {
+  background-color: #1a1a1a; /* Fancy black color for Col background in dark mode */
+}
+
+.ant-config-provider-dark .ant-col {
+  background-color: #1a1a1a; /* Fancy black color for Col background in dark mode */
+}
+
+body.ant-config-provider-dark .ant-layout-header {
+  background-color: #1a1a1a; /* Fancy black color for NavBar background in dark mode */
+}

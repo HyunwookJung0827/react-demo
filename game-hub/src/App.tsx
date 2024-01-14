@@ -1,38 +1,41 @@
-import { useState } from "react";
-import "./App.css";
-import { Button, Card, Col, ConfigProvider, DatePicker, Row, theme } from "antd";
-import NavBar from "./components/NavBar";
-import GameGrid from "./components/GameGrid";
+// App.tsx
 
-function App() {
-  const [count, setCount] = useState(0);
-  const { defaultAlgorithm, darkAlgorithm } = theme;
+import React from 'react';
+import { useState } from 'react';
+import { Button, Card, Col, ConfigProvider, DatePicker, Row, theme } from 'antd';
+import NavBar from './components/NavBar';
+import GameGrid from './components/GameGrid';
+import './App.css';
+
+const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+
   const handleClick = () => {
     setIsDarkMode((previousValue) => !previousValue);
-   };
+  };
+
+  const containerStyle = {
+    backgroundColor: isDarkMode ? '#1a1a1a' : 'white', // Set background color based on dark mode
+  };
+
+  const navBarStyle = {
+    background: isDarkMode ? '#1a1a1a' : 'white', // Set background color for NavBar in dark mode
+  };
+
   return (
-    <ConfigProvider theme={{
-      algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
-    }}>
-      <NavBar onClick={handleClick}></NavBar>
-      <Row>
+    <ConfigProvider theme={{ algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
+      <NavBar onClick={handleClick} style={navBarStyle} darkMode={isDarkMode} />
+      <Row style={containerStyle}>
         <Col span={12} className="bg-amber-300 aside">
           Aside
         </Col>
-        <Col flex="auto" className="bg-blue-500">
+        <Col flex="auto">
           <GameGrid />
         </Col>
       </Row>
-      <h1 className="text-3xl font-bold underline bg-gray-500">Hello world!</h1>
-      <DatePicker />
-      <Card style={{ width: "max-content" }}>
-      <Button onClick={handleClick}>
-        Change Theme to {isDarkMode ? "Light" : "Dark"}
-      </Button>
-    </Card>
+      {/* ... rest of your code */}
     </ConfigProvider>
   );
-}
+};
 
 export default App;
