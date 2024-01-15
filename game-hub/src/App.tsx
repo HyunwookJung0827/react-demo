@@ -15,9 +15,11 @@ import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
 import "./App.css";
 import GenreList from "./components/GenreList";
+import { Genre } from "./hooks/useGenres";
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
 
   const containerStyle = {
     backgroundColor: isDarkMode ? "#1a1a1a" : "white", // Set background color based on dark mode
@@ -41,10 +43,10 @@ const App = () => {
 
       <Row style={containerStyle} gutter={4}>
         <Col span={5} style={{ paddingLeft: '20px', paddingRight: '10px' }}>
-          <GenreList />
+          <GenreList onSelectGenre={(genre) => setSelectedGenre(genre)}/>
         </Col>
         <Col span={19}>
-          <GameGrid />
+          <GameGrid selectedGenre={selectedGenre}/>
         </Col>
       </Row>
     </ConfigProvider>
