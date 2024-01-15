@@ -33,7 +33,6 @@ const App = () => {
           <GameGrid />
         </Col>
       </Row>
-      {/* ... rest of your code */}
     </ConfigProvider>
   );
 };

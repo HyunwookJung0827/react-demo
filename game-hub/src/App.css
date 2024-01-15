@@ -7,42 +7,51 @@
       display: none;
     }
   }
+/* App.css */
 
-  /* App.css */
-
-/* Your existing styles */
-
+/* Bluish grey color for the Card in dark mode */
 .ant-card {
-  background-color: #475569; /* Bluish grey color for the Card in dark mode */
+  background-color: #475569;
 }
 
+/* Darker bluish grey color for the Card's head in dark mode */
 .ant-card-head {
-  background-color: #2a3340; /* Darker bluish grey color for the Card's head in dark mode */
+  background-color: #2a3340;
 }
 
+/* Bluish grey color for the Card's body in dark mode */
 .ant-card-body {
-  background-color: #475569; /* Bluish grey color for the Card's body in dark mode */
+  background-color: #475569;
   color: white; /* Set text color to white in dark mode */
 }
 
-/* Fancy grey for GameCard in dark mode */
+/* Fancy grey color for GameCard in dark mode */
 .ant-config-provider-dark .ant-card {
-  background-color: #4d4d59; /* Fancy grey color for GameCard in dark mode */
+  background-color: #4d4d59;
 }
 
+/* Darker fancy grey color for GameCard's head in dark mode */
 .ant-config-provider-dark .ant-card-head {
-  background-color: #393943; /* Darker fancy grey color for GameCard's head in dark mode */
+  background-color: #393943;
 }
 
-/* Fancy black for Col background in dark mode */
+/* Fancy black color for Col background in dark mode */
 .ant-config-provider-dark .ant-row {
-  background-color: #1a1a1a; /* Fancy black color for Col background in dark mode */
+  background-color: #1a1a1a;
 }
 
+/* Fancy black color for Col background in dark mode */
 .ant-config-provider-dark .ant-col {
-  background-color: #1a1a1a; /* Fancy black color for Col background in dark mode */
+  background-color: #1a1a1a;
 }
 
+/* Fancy black color for NavBar background in dark mode */
 body.ant-config-provider-dark .ant-layout-header {
-  background-color: #1a1a1a; /* Fancy black color for NavBar background in dark mode */
+  background-color: #1a1a1a;
+}
+
+/* Brighter background color for Card body in light mode */
+body:not(.ant-config-provider-dark) .ant-card-body {
+  background-color: #f0f0f0; /* Adjust the color code for a brighter background in light mode */
+  color: black; /* Set text color to black in light mode */
 }

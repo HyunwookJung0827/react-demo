@@ -1,16 +1,17 @@
-import { Card, Image, Tag, Typography } from "antd";
+import { Image, Typography } from "antd";
 import { Game } from "../hooks/useGames";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
 import getCroppedImageUrl from "../services/image-url";
+import GameCardContainer from "./GameCardContainer";
 interface Props {
   game: Game;
 }
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title } = Typography;
 
 const GameCard = ({ game }: Props) => {
   return (
-    <Card style={{ marginBottom: "16px" }}>
+    <GameCardContainer>
       <Image src={getCroppedImageUrl(game.background_image)} />
       <Title level={3}>{game.name}</Title>
       <div
@@ -25,7 +26,7 @@ const GameCard = ({ game }: Props) => {
         />
         <CriticScore score={game.metacritic} />
       </div>
-    </Card>
+    </GameCardContainer>
   );
 };
 
