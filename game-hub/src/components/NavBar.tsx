@@ -6,10 +6,12 @@ interface Props {
 const NavBar = ({ onClick }: Props) => {
   return (
     <Row align="middle" gutter={8}>
-        <Col className="gutter-row"><Image src={logo} alt="Logo" width={60} /></Col>
-        <Col className="gutter-row" push={20}><Switch className="bg-green-600" onChange={onClick} /> Dark Mode</Col>
-      
-      
+      <Col className="gutter-row">
+        <Image src={logo} alt="Logo" width={60} />
+      </Col>
+      <Col className="gutter-row" push={20}>
+        <Switch className="bg-green-600" onChange={onClick} /> Dark Mode
+      </Col>
     </Row>
   );
 };
