@@ -17,3 +17,7 @@ https://github.com/HyunwookJung0827/react-demo/assets/90017772/941c1737-70d6-4ab
 [Project: Expense Tracker]
 https://github.com/HyunwookJung0827/react-demo/assets/90017772/2d7b2a56-2b4a-4083-abb1-c9691a09a956
 
+[1/14/2024] Still having trouble with antd skeletons for the loading screens Beginner's course 80%
+
+https://github.com/HyunwookJung0827/react-demo/assets/90017772/3799e1e0-7327-4036-8874-3ad09bbae58d
+
