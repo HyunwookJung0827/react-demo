@@ -4,10 +4,10 @@ import useGenres from "../hooks/useGenres"
 const { Text } = Typography;
 
 const GenreList = () => {
-    const {genres} = useGenres();
+    const {data} = useGenres();
   return (
     <List
-    dataSource={genres}
+    dataSource={data}
     renderItem={(genre) => (
       <List.Item>
         <Text key={genre.id}>{genre.name}</Text>
