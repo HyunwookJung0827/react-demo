@@ -37,15 +37,13 @@ const App = () => {
         onClick={() => {
           setIsDarkMode((previousValue) => !previousValue);
         }}
-        style={navBarStyle}
-        darkMode={isDarkMode}
       />
 
-      <Row style={containerStyle}>
-        <Col span={4}>
+      <Row style={containerStyle} gutter={4}>
+        <Col span={5} style={{ paddingLeft: '20px', paddingRight: '10px' }}>
           <GenreList />
         </Col>
-        <Col span={20} flex="auto">
+        <Col span={19}>
           <GameGrid />
         </Col>
       </Row>

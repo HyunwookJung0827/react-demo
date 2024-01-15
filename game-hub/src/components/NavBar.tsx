@@ -5,12 +5,12 @@ interface Props {
 }
 const NavBar = ({ onClick }: Props) => {
   return (
-    <Row align="middle" gutter={8}>
+    <Row align="middle" gutter={8} style={{ paddingLeft: '10px' }}>
       <Col className="gutter-row">
         <Image src={logo} alt="Logo" width={60} />
       </Col>
       <Col className="gutter-row" push={20}>
-        <Switch className="bg-green-600" onChange={onClick} /> Dark Mode
+        <Switch className="bg-green-300" onChange={onClick} /> Dark Mode
       </Col>
     </Row>
   );
