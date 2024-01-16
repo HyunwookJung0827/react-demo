@@ -43,7 +43,7 @@ const App = () => {
 
       <Row style={containerStyle} gutter={4}>
         <Col span={5} style={{ paddingLeft: '20px', paddingRight: '10px' }}>
-          <GenreList onSelectGenre={(genre) => setSelectedGenre(genre)}/>
+          <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}/>
         </Col>
         <Col span={19}>
           <GameGrid selectedGenre={selectedGenre}/>
