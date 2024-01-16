@@ -1,7 +1,8 @@
 import { Col, Image, Row, Switch } from "antd";
 import logo from "../assets/Logo/logo.webp";
+import { SwitchChangeEventHandler } from "antd/es/switch";
 interface Props {
-  onClick: void;
+  onClick: SwitchChangeEventHandler;
 }
 const NavBar = ({ onClick }: Props) => {
   return (

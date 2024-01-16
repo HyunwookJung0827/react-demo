@@ -1,6 +1,3 @@
-// App.tsx
-
-import React from "react";
 import { useState } from "react";
 import {
   Button,
@@ -17,10 +14,15 @@ import "./App.css";
 import GenreList from "./components/GenreList";
 import { Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
+import { Platform } from "./hooks/useGames";
 
+export interface GameQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+}
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
   const containerStyle = {
     backgroundColor: isDarkMode ? "#1a1a1a" : "white", // Set background color based on dark mode
@@ -37,18 +39,24 @@ const App = () => {
       }}
     >
       <NavBar
-        onClick={() => {
-          setIsDarkMode((previousValue) => !previousValue);
-        }}
+        onClick={() => setIsDarkMode((previousValue) => !previousValue)}
       />
 
       <Row style={containerStyle} gutter={4}>
-        <Col span={5} style={{ paddingLeft: '20px', paddingRight: '10px' }}>
-          <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}/>
+        <Col span={5} style={{ paddingLeft: "20px", paddingRight: "10px" }}>
+          <GenreList
+            selectedGenre={gameQuery.genre}
+            onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+          />
         </Col>
         <Col span={19}>
-          <PlatformSelector />
-          <GameGrid selectedGenre={selectedGenre}/>
+          <PlatformSelector
+            selectedPlatform={gameQuery.platform}
+            onSelectPlatform={(platform) =>
+              setGameQuery({ ...gameQuery, platform })
+            }
+          />
+          <GameGrid gameQuery={gameQuery} />
         </Col>
       </Row>
     </ConfigProvider>

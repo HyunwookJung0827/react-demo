@@ -1,15 +1,16 @@
 import { Card, List, Skeleton, Typography } from "antd";
-import useGames from "../hooks/useGames";
+import useGames, { Platform } from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import { Genre } from "../hooks/useGenres";
+import { GameQuery } from "../App";
 
 const { Text } = Typography;
 interface Props {
-  selectedGenre: Genre | null
+  gameQuery: GameQuery;
 }
-const GameGrid = ({ selectedGenre }: Props) => {
-  const { data, error, isLoading } = useGames(selectedGenre);
+const GameGrid = ({ gameQuery }: Props) => {
+  const { data, error, isLoading } = useGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
