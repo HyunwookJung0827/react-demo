@@ -16,6 +16,7 @@ import GameGrid from "./components/GameGrid";
 import "./App.css";
 import GenreList from "./components/GenreList";
 import { Genre } from "./hooks/useGenres";
+import PlatformSelector from "./components/PlatformSelector";
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -46,6 +47,7 @@ const App = () => {
           <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}/>
         </Col>
         <Col span={19}>
+          <PlatformSelector />
           <GameGrid selectedGenre={selectedGenre}/>
         </Col>
       </Row>
