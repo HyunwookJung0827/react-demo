@@ -21,6 +21,7 @@ export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   sortOrder: string;
+  searchText: string;
 }
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -40,7 +41,7 @@ const App = () => {
         algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <NavBar
+      <NavBar onSearch={(searchText) => setGameQuery({...gameQuery, searchText})}
         onClick={() => setIsDarkMode((previousValue) => !previousValue)}
       />
 

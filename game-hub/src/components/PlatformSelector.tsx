@@ -47,7 +47,6 @@ const PlatformSelector = ({ selectedPlatform, onSelectPlatform }: Props) => {
       platformItems
     ),
   ];
-  console.log(data);
   return (
     <Dropdown
       menu={{

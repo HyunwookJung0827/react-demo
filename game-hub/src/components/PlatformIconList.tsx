@@ -10,7 +10,7 @@ const PlatformIconList = ({ platforms }: Props) => {
     <div style={{ display: "flex" }}>
       {" "}
       {platforms.map((platform) => (
-        <PlatformIcon platform={platform.slug} color="grey"/>
+        <PlatformIcon key={platform.id} platform={platform.slug} color="grey"/>
       ))}
     </div>
   );
