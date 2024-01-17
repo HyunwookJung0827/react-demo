@@ -20,6 +20,7 @@ import SortSelector from "./components/SortSelector";
 export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
+  sortOrder: string;
 }
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -52,7 +53,7 @@ const App = () => {
         </Col>
         <Col span={19}>
           <Row justify="start" style={{ paddingBottom: "20px" }}>
-            <Col style={{ paddingRight: "20px"}}>
+            <Col style={{ paddingRight: "20px" }}>
               <PlatformSelector
                 selectedPlatform={gameQuery.platform}
                 onSelectPlatform={(platform) =>
@@ -61,7 +62,7 @@ const App = () => {
               />
             </Col>
             <Col>
-              <SortSelector />
+              <SortSelector sortOrder={gameQuery.sortOrder} onSelectSortOrder={(sortOrder) => setGameQuery({...gameQuery, sortOrder})}/>
             </Col>
           </Row>
           <GameGrid gameQuery={gameQuery} />

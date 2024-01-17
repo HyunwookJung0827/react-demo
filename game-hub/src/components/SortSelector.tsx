@@ -14,7 +14,7 @@ type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
   label: React.ReactNode,
-  key: React.Key,
+  key: string,
   icon?: React.ReactNode,
   children?: MenuItem[],
   type?: "group"
@@ -28,45 +28,45 @@ function getItem(
   } as MenuItem;
 }
 interface Props {
-  selectedPlatform: Platform | null;
-  onSelectPlatform: (platform: Platform) => void;
+  onSelectSortOrder: (sortOrder: string) => void;
+  sortOrder: string;
 }
-const SortSelector = () => {
-    const data = [{name: "Relevance", id: 0}, 
-    {name: "Date added", id: 1}, 
-    {name: "Name", id: 2}, 
-    {name: "Release date", id: 3}, 
-    {name: "Popularity", id: 4}, 
-    {name: "Average rating", id: 5}]
-
-  const platformItems: MenuItem[] = data.map((item) =>
-    getItem(item.name, item.id)
-  );
-
-  const items: MenuProps["items"] = [
-    getItem(
-      "Platforms",
-      "sub1",
-      <AppstoreOutlined />,
-      platformItems
-    ),
+const SortSelector = ({ sortOrder, onSelectSortOrder }: Props) => {
+  const sortOrders = [
+    { name: "Relevance", key: '' },
+    { name: "Date added", key: '-added' },
+    { name: "Name", key: 'name' },
+    { name: "Release date", key: '-released' },
+    { name: "Popularity", key: '-metacritic' },
+    { name: "Average rating", key: '-rating' },
   ];
-  console.log(data);
+
+  const sortOrderItems: MenuItem[] = sortOrders.map((item) =>
+    getItem(item.name, item.key)
+  );
+const currentSortOrder = sortOrders.find(order=> order.key === sortOrder);
   return (
     <Dropdown
       menu={{
-        items: platformItems,
+        items: sortOrderItems,
         selectable: true,
         onClick: (e) => {
-          console.log(e);
-        },
+            const id = e.key;
+            const sortOrder = sortOrders.find(
+              (order) => order.key.toString() === id
+            );
+            sortOrder && onSelectSortOrder(sortOrder.key);
+          }
       }}
       trigger={["click"]}
       overlayStyle={{ width: 200 }}
-    ><Button><Space>
-        Order by: Relevance
-    <DownOutlined /></Space>
-  </Button>
+    >
+      <Button>
+        <Space>
+          Order by: {currentSortOrder?.name || 'Relevance'}
+          <DownOutlined />
+        </Space>
+      </Button>
       {/* <div style={{ width: 200 }}>{selectedPlatform?.name || "Platforms"}</div> */}
       {/* <Menu
       onClick={(e) =>{

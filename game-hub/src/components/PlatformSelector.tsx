@@ -59,7 +59,6 @@ const PlatformSelector = ({ selectedPlatform, onSelectPlatform }: Props) => {
             (platform) => platform.id.toString() === id
           );
           platform && onSelectPlatform(platform);
-          console.log(e);
         },
       }}
       trigger={["click"]}
