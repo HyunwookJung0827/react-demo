@@ -15,6 +15,7 @@ import GenreList from "./components/GenreList";
 import { Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
 import { Platform } from "./hooks/useGames";
+import SortSelector from "./components/SortSelector";
 
 export interface GameQuery {
   genre: Genre | null;
@@ -50,12 +51,19 @@ const App = () => {
           />
         </Col>
         <Col span={19}>
-          <PlatformSelector
-            selectedPlatform={gameQuery.platform}
-            onSelectPlatform={(platform) =>
-              setGameQuery({ ...gameQuery, platform })
-            }
-          />
+          <Row justify="start" style={{ paddingBottom: "20px" }}>
+            <Col style={{ paddingRight: "20px"}}>
+              <PlatformSelector
+                selectedPlatform={gameQuery.platform}
+                onSelectPlatform={(platform) =>
+                  setGameQuery({ ...gameQuery, platform })
+                }
+              />
+            </Col>
+            <Col>
+              <SortSelector />
+            </Col>
+          </Row>
           <GameGrid gameQuery={gameQuery} />
         </Col>
       </Row>
