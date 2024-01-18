@@ -32,10 +32,6 @@ const App = () => {
     backgroundColor: isDarkMode ? "#1a1a1a" : "white", // Set background color based on dark mode
   };
 
-  const navBarStyle = {
-    background: isDarkMode ? "#1a1a1a" : "white", // Set background color for NavBar in dark mode
-  };
-
   return (
     <ConfigProvider
       theme={{
@@ -45,6 +41,7 @@ const App = () => {
       <NavBar
         onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         onClick={() => setIsDarkMode((previousValue) => !previousValue)}
+        
       />
 
       <Row style={containerStyle} gutter={4}>
@@ -76,7 +73,7 @@ const App = () => {
               />
             </Col>
           </Row>
-          <GameGrid gameQuery={gameQuery} />
+          <GameGrid gameQuery={gameQuery}/>
         </Col>
       </Row>
     </ConfigProvider>

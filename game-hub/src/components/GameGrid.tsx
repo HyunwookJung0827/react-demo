@@ -8,8 +8,9 @@ import { GameQuery } from "../App";
 const { Text } = Typography;
 interface Props {
   gameQuery: GameQuery;
+  isDarkMode: boolean;
 }
-const GameGrid = ({ gameQuery }: Props) => {
+const GameGrid = ({ gameQuery, isDarkMode }: Props) => {
   const { data, error, isLoading } = useGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6];
 
@@ -31,8 +32,8 @@ const GameGrid = ({ gameQuery }: Props) => {
         grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 3 }}
         dataSource={data}
         renderItem={(game) => (
-          <List.Item>
-            <GameCard key={game.id} game={game} />
+          <List.Item >
+            <GameCard key={game.id} game={game} isDarkMode={isDarkMode}/>
           </List.Item>
         )}
       ></List>

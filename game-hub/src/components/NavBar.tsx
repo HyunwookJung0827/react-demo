@@ -6,10 +6,11 @@ const { Text } = Typography;
 interface Props {
   onClick: SwitchChangeEventHandler;
   onSearch: (searchText: string) => void;
+  isDarkMode: boolean;
 }
-const NavBar = ({ onClick, onSearch }: Props) => {
+const NavBar = ({ onClick, onSearch, isDarkMode }: Props) => {
   return (
-    <Row align="middle" gutter={8} style={{ paddingLeft: "10px" }}>
+    <Row align="middle" gutter={8} style={{ paddingLeft: "10px", background: isDarkMode ? '#333' : '#fff'  }}>
       <Col flex="auto">
         {/* This Col will take the remaining space */}
         <Row gutter={8} align="middle">

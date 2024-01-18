@@ -1,14 +1,17 @@
-import { Card } from 'antd'
-import { ReactNode } from 'react'
+import { Card } from "antd";
+import { ReactNode } from "react";
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
+  isDarkMode: boolean;
 }
-const GameCardContainer = ({children}: Props) => {
+const GameCardContainer = ({ children, isDarkMode }: Props) => {
   return (
-    <Card style={{ marginBottom: "16px" }}>
-        {children}
+    <Card
+      style={{ marginBottom: "16px", background: isDarkMode ? "#333" : "#fff" }}
+    >
+      {children}
     </Card>
-  )
-}
+  );
+};
 
-export default GameCardContainer
+export default GameCardContainer;

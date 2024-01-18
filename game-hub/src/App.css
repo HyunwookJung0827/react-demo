@@ -8,6 +8,9 @@
     }
   }
 /* App.css */
+.cover {
+  object-fit: cover;
+}
 
 /* Bluish grey color for the Card in dark mode */
 .ant-card {
@@ -25,33 +28,8 @@
   color: white; /* Set text color to white in dark mode */
 }
 
-/* Fancy grey color for GameCard in dark mode */
-.ant-config-provider-dark .ant-card {
-  background-color: #4d4d59;
-}
-
-/* Darker fancy grey color for GameCard's head in dark mode */
-.ant-config-provider-dark .ant-card-head {
-  background-color: #393943;
-}
 
 /* Fancy black color for Col background in dark mode */
-.ant-config-provider-dark .ant-row {
+.ant-config-provider-dark {
   background-color: #1a1a1a;
-}
-
-/* Fancy black color for Col background in dark mode */
-.ant-config-provider-dark .ant-col {
-  background-color: #1a1a1a;
-}
-
-/* Fancy black color for NavBar background in dark mode */
-body.ant-config-provider-dark .ant-layout-header {
-  background-color: #1a1a1a;
-}
-
-/* Brighter background color for Card body in light mode */
-body:not(.ant-config-provider-dark) .ant-card-body {
-  background-color: #f0f0f0; /* Adjust the color code for a brighter background in light mode */
-  color: black; /* Set text color to black in light mode */
 }

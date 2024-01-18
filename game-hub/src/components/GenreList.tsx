@@ -2,7 +2,7 @@ import { Button, Image, List, Row, Spin, Typography } from "antd";
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 
-const { Text } = Typography;
+const { Title } = Typography;
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
@@ -14,41 +14,43 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   if (error) return null;
   if (isLoading) return <Spin />;
   return (
-    <List
-      dataSource={data}
-      renderItem={(genre) => (
-        <List.Item key={genre.id}>
-          <Row style={{ display: "flex", alignItems: "center" }}>
-            <Image
-              src={getCroppedImageUrl(genre.image_background)}
-              height={32}
-              width={32}
-              style={{
-                marginRight: "8px",
-                marginBottom: "0px",
-                borderRadius: "20%",
-              }}
-            />
-            <Button
-              type="link"
-              onClick={() => onSelectGenre(genre)}
-              danger={true}
-            >
-              <Typography.Title
-                level={5}
+    <>
+      <Title level={3}>Genres</Title>
+      <List
+        dataSource={data}
+        renderItem={(genre) => (
+          <List.Item key={genre.id}>
+            <Row>
+              <Image
+                src={getCroppedImageUrl(genre.image_background)}
+                height={32}
+                width={32}
                 style={{
-                  margin: 0,
-                  fontWeight:
-                    genre.id === selectedGenre?.id ? "bold" : "normal",
+                  marginRight: "8px",
+                  marginBottom: "0px",
+                  borderRadius: "20%",
                 }}
-              >
-                {genre.name}
-              </Typography.Title>
-            </Button>
-          </Row>
-        </List.Item>
-      )}
-    ></List>
+                className="cover"
+              />
+              <Button type="link" onClick={() => onSelectGenre(genre)}>
+                <Typography.Title
+                  level={5}
+                  style={{
+                    margin: 0,
+                    fontWeight:
+                      genre.id === selectedGenre?.id ? "bold" : "normal",
+                    whiteSpace: "pre-line", // Make the text change lines when there's not enough space
+                    textAlign: "left",
+                  }}
+                >
+                  {genre.name}
+                </Typography.Title>
+              </Button>
+            </Row>
+          </List.Item>
+        )}
+      ></List>
+    </>
   );
 };
 

@@ -6,12 +6,13 @@ import getCroppedImageUrl from "../services/image-url";
 import GameCardContainer from "./GameCardContainer";
 interface Props {
   game: Game;
+  isDarkMode: boolean;
 }
 const { Title } = Typography;
 
-const GameCard = ({ game }: Props) => {
+const GameCard = ({ game, isDarkMode }: Props) => {
   return (
-    <GameCardContainer>
+    <GameCardContainer isDarkMode={isDarkMode}>
       <Image src={getCroppedImageUrl(game.background_image)} />
       <Title level={3}>{game.name}</Title>
       <div
