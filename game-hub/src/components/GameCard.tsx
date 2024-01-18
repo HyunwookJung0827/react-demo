@@ -4,6 +4,7 @@ import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
 import getCroppedImageUrl from "../services/image-url";
 import GameCardContainer from "./GameCardContainer";
+import Emoji from "./Emoji";
 interface Props {
   game: Game;
   isDarkMode: boolean;
@@ -28,7 +29,7 @@ const GameCard = ({ game, isDarkMode }: Props) => {
         />
         <CriticScore score={game.metacritic} />
       </div>
-      <Title level={3}>{game.name}</Title>
+      <Title level={3}>{game.name}</Title><Emoji rating={game.rating_top}/>
     </GameCardContainer>
   );
 };

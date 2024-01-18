@@ -15,6 +15,7 @@ export interface Game {
     // parent_platform is not an array of platform
     // It's an array of objects that has a property platform
     metacritic: number;
+    rating_top: number; // rating but not a float number
   }
 const useGames = (gameQuery: GameQuery) => 
 useData<Game>('/games', { 
