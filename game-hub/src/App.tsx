@@ -16,6 +16,7 @@ import { Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
 import { Platform } from "./hooks/useGames";
 import SortSelector from "./components/SortSelector";
+import GameHeading from "./components/GameHeading";
 
 export interface GameQuery {
   genre: Genre | null;
@@ -41,7 +42,8 @@ const App = () => {
         algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <NavBar onSearch={(searchText) => setGameQuery({...gameQuery, searchText})}
+      <NavBar
+        onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         onClick={() => setIsDarkMode((previousValue) => !previousValue)}
       />
 
@@ -53,6 +55,9 @@ const App = () => {
           />
         </Col>
         <Col span={19}>
+          <Row justify="start">
+            <GameHeading gameQuery={gameQuery} />
+          </Row>
           <Row justify="start" style={{ paddingBottom: "20px" }}>
             <Col style={{ paddingRight: "20px" }}>
               <PlatformSelector
@@ -63,7 +68,12 @@ const App = () => {
               />
             </Col>
             <Col>
-              <SortSelector sortOrder={gameQuery.sortOrder} onSelectSortOrder={(sortOrder) => setGameQuery({...gameQuery, sortOrder})}/>
+              <SortSelector
+                sortOrder={gameQuery.sortOrder}
+                onSelectSortOrder={(sortOrder) =>
+                  setGameQuery({ ...gameQuery, sortOrder })
+                }
+              />
             </Col>
           </Row>
           <GameGrid gameQuery={gameQuery} />
