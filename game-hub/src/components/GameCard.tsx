@@ -14,12 +14,13 @@ const GameCard = ({ game, isDarkMode }: Props) => {
   return (
     <GameCardContainer isDarkMode={isDarkMode}>
       <Image src={getCroppedImageUrl(game.background_image)} />
-      <Title level={3}>{game.name}</Title>
+
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          marginBottom: 3
         }}
       >
         <PlatformIconList
@@ -27,6 +28,7 @@ const GameCard = ({ game, isDarkMode }: Props) => {
         />
         <CriticScore score={game.metacritic} />
       </div>
+      <Title level={3}>{game.name}</Title>
     </GameCardContainer>
   );
 };

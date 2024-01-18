@@ -19,7 +19,7 @@ const GameGrid = ({ gameQuery, isDarkMode }: Props) => {
       {error && <Text>{error}</Text>}
       {isLoading && (
         <List
-          grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 3 }}
+          grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 4 }}
           dataSource={skeletons}
           renderItem={(skeleton) => (
             <List.Item>
