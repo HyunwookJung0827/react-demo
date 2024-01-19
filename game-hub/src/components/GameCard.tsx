@@ -7,13 +7,12 @@ import GameCardContainer from "./GameCardContainer";
 import Emoji from "./Emoji";
 interface Props {
   game: Game;
-  isDarkMode: boolean;
 }
 const { Title } = Typography;
 
-const GameCard = ({ game, isDarkMode }: Props) => {
+const GameCard = ({ game}: Props) => {
   return (
-    <GameCardContainer isDarkMode={isDarkMode}>
+    <GameCardContainer>
       <Image src={getCroppedImageUrl(game.background_image)} />
 
       <div

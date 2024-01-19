@@ -38,10 +38,9 @@ const App = () => {
         algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <NavBar
+      <NavBar style={containerStyle}
         onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         onClick={() => setIsDarkMode((previousValue) => !previousValue)}
-        
       />
 
       <Row style={containerStyle} gutter={4}>
@@ -73,7 +72,7 @@ const App = () => {
               />
             </Col>
           </Row>
-          <GameGrid gameQuery={gameQuery}/>
+          <GameGrid gameQuery={gameQuery} />
         </Col>
       </Row>
     </ConfigProvider>

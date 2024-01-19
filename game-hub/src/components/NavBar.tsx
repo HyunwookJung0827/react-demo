@@ -4,13 +4,13 @@ import { SwitchChangeEventHandler } from "antd/es/switch";
 import SearchInput from "./SearchInput";
 const { Text } = Typography;
 interface Props {
+  style?: React.CSSProperties; // Define the style prop
   onClick: SwitchChangeEventHandler;
   onSearch: (searchText: string) => void;
-  isDarkMode: boolean;
 }
-const NavBar = ({ onClick, onSearch, isDarkMode }: Props) => {
+const NavBar = ({ style, onClick, onSearch }: Props) => {
   return (
-    <Row align="middle" gutter={8} style={{ paddingLeft: "10px", background: isDarkMode ? '#333' : '#fff'  }}>
+    <Row align="middle" gutter={8} style={{ paddingLeft: "10px"}}>
       <Col flex="auto">
         {/* This Col will take the remaining space */}
         <Row gutter={8} align="middle">

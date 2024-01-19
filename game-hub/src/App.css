@@ -11,25 +11,3 @@
 .cover {
   object-fit: cover;
 }
-
-/* Bluish grey color for the Card in dark mode */
-.ant-card {
-  background-color: #475569;
-}
-
-/* Darker bluish grey color for the Card's head in dark mode */
-.ant-card-head {
-  background-color: #2a3340;
-}
-
-/* Bluish grey color for the Card's body in dark mode */
-.ant-card-body {
-  background-color: #475569;
-  color: white; /* Set text color to white in dark mode */
-}
-
-
-/* Fancy black color for Col background in dark mode */
-.ant-config-provider-dark {
-  background-color: #1a1a1a;
-}
