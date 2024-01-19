@@ -1,10 +1,7 @@
 import { useState } from "react";
 import {
-  Button,
-  Card,
   Col,
   ConfigProvider,
-  DatePicker,
   Row,
   theme,
 } from "antd";
@@ -38,7 +35,7 @@ const App = () => {
         algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <NavBar style={containerStyle}
+      <NavBar
         onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         onClick={() => setIsDarkMode((previousValue) => !previousValue)}
       />

@@ -1,14 +1,9 @@
 import React from "react";
 import {
-  AppstoreOutlined,
   DownOutlined,
-  MailOutlined,
-  SettingOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Button, Dropdown, Menu, Space } from "antd";
-import usePlatforms from "../hooks/usePlatforms";
-import { Platform } from "../hooks/useGames";
+import { Button, Dropdown, Space } from "antd";
 
 type MenuItem = Required<MenuProps>["items"][number];
 

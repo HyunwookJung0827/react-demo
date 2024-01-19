@@ -4,11 +4,10 @@ import { SwitchChangeEventHandler } from "antd/es/switch";
 import SearchInput from "./SearchInput";
 const { Text } = Typography;
 interface Props {
-  style?: React.CSSProperties; // Define the style prop
   onClick: SwitchChangeEventHandler;
   onSearch: (searchText: string) => void;
 }
-const NavBar = ({ style, onClick, onSearch }: Props) => {
+const NavBar = ({ onClick, onSearch }: Props) => {
   return (
     <Row align="middle" gutter={8} style={{ paddingLeft: "10px"}}>
       <Col flex="auto">
