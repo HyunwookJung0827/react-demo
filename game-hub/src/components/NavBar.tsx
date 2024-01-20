@@ -7,9 +7,9 @@ interface Props {
   onClick: SwitchChangeEventHandler;
   onSearch: (searchText: string) => void;
 }
-const NavBar = ({ onClick, onSearch }: Props) => {
+const NavBar = ({ onClick, onSearch}: Props) => {
   return (
-    <Row align="middle" gutter={8} style={{ paddingLeft: "10px"}}>
+    <Row align="middle" gutter={8} style={{ paddingLeft: "10px" }}>
       <Col flex="auto">
         {/* This Col will take the remaining space */}
         <Row gutter={8} align="middle">

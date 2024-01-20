@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  Col,
-  ConfigProvider,
-  Row,
-  theme,
-} from "antd";
+import { Col, ConfigProvider, Row, Space, theme } from "antd";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
 import "./App.css";
@@ -30,49 +25,58 @@ const App = () => {
   };
 
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
-      }}
-    >
+    <>
       <NavBar
         onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         onClick={() => setIsDarkMode((previousValue) => !previousValue)}
       />
+      <ConfigProvider
+        theme={{
+          algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
 
-      <Row style={containerStyle} gutter={4}>
-        <Col span={5} style={{ paddingLeft: "20px", paddingRight: "10px" }}>
-          <GenreList
-            selectedGenre={gameQuery.genre}
-            onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
-          />
-        </Col>
-        <Col span={19}>
-          <Row justify="start">
-            <GameHeading gameQuery={gameQuery} />
-          </Row>
-          <Row justify="start" style={{ paddingBottom: "20px" }}>
-            <Col style={{ paddingRight: "20px" }}>
-              <PlatformSelector
-                selectedPlatform={gameQuery.platform}
-                onSelectPlatform={(platform) =>
-                  setGameQuery({ ...gameQuery, platform })
-                }
+          components: {
+            Card: {
+              colorBgContainer: isDarkMode ? "#1f1f1f" : "#f5f5f5",
+            },
+          },
+        }}
+      >
+        <Space>
+          <Row style={containerStyle} gutter={4}>
+            <Col span={5} style={{ paddingLeft: "20px", paddingRight: "10px" }}>
+              <GenreList
+                selectedGenre={gameQuery.genre}
+                onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
               />
             </Col>
-            <Col>
-              <SortSelector
-                sortOrder={gameQuery.sortOrder}
-                onSelectSortOrder={(sortOrder) =>
-                  setGameQuery({ ...gameQuery, sortOrder })
-                }
-              />
+            <Col span={19}>
+              <Row justify="start">
+                <GameHeading gameQuery={gameQuery} />
+              </Row>
+              <Row justify="start" style={{ paddingBottom: "20px" }}>
+                <Col style={{ paddingRight: "20px" }}>
+                  <PlatformSelector
+                    selectedPlatform={gameQuery.platform}
+                    onSelectPlatform={(platform) =>
+                      setGameQuery({ ...gameQuery, platform })
+                    }
+                  />
+                </Col>
+                <Col>
+                  <SortSelector
+                    sortOrder={gameQuery.sortOrder}
+                    onSelectSortOrder={(sortOrder) =>
+                      setGameQuery({ ...gameQuery, sortOrder })
+                    }
+                  />
+                </Col>
+              </Row>
+              <GameGrid gameQuery={gameQuery} />
             </Col>
           </Row>
-          <GameGrid gameQuery={gameQuery} />
-        </Col>
-      </Row>
-    </ConfigProvider>
+        </Space>
+      </ConfigProvider>
+    </>
   );
 };
 
