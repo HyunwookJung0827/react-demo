@@ -45,12 +45,25 @@
 // export default ProductCard;
 
 // [4-Tailwind CSS]
+// import React from "react";
+// import AddToCard from "./AddToCard";
+
+// const ProductCard = () => {
+//   return (
+//     <div className="p-5 my-5 bg-sky-400 text-white text-3xl hover:bg-sky-500">
+//       <AddToCard />
+//     </div>
+//   );
+// };
+
+// export default ProductCard;
+
 import React from "react";
 import AddToCard from "./AddToCard";
 
 const ProductCard = () => {
   return (
-    <div className="p-5 my-5 bg-sky-400 text-white text-3xl hover:bg-sky-500">
+    <div>
       <AddToCard />
     </div>
   );
