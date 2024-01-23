@@ -28,14 +28,29 @@
 
 // export default ProductCard;
 
+// // [3-CSS Modules]
+// import React from "react";
+// import AddToCard from "./AddToCard";
+// import styles from './ProductCard.module.css'; // styles is a javascript object
+
+// styles.card
+// const ProductCard = () => {
+//   return (
+//     <div className={styles.card}>
+//       <AddToCard />
+//     </div>
+//   );
+// };
+
+// export default ProductCard;
+
+// [4-Tailwind CSS]
 import React from "react";
 import AddToCard from "./AddToCard";
-import styles from './ProductCard.module.css'; // styles is a javascript object
 
-styles.card
 const ProductCard = () => {
   return (
-    <div className={styles.card}>
+    <div className="p-5 my-5 bg-sky-400 text-white text-3xl hover:bg-sky-500">
       <AddToCard />
     </div>
   );
