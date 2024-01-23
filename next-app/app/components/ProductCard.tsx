@@ -15,12 +15,27 @@
 // export default ProductCard;
 
 // 2. Make the button client components
+// import React from "react";
+// import AddToCard from "./AddToCard";
+
+// const ProductCard = () => {
+//   return (
+//     <div>
+//       <AddToCard />
+//     </div>
+//   );
+// };
+
+// export default ProductCard;
+
 import React from "react";
 import AddToCard from "./AddToCard";
+import styles from './ProductCard.module.css'; // styles is a javascript object
 
+styles.card
 const ProductCard = () => {
   return (
-    <div>
+    <div className={styles.card}>
       <AddToCard />
     </div>
   );
