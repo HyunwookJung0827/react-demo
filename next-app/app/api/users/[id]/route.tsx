@@ -1,4 +1,5 @@
 // [3-Getting a Single Object]
+// Try http://localhost:3000/api/users/1 or http://localhost:3000/api/users/11
 import { NextRequest, NextResponse } from "next/server";
 
 interface Props {
