@@ -36,3 +36,16 @@ export async function PUT(
   // 6. Return the updated user
   return NextResponse.json({ id: 1, name: body.name });
 }
+
+export function DELETE(
+  request: NextResponse,
+  { params }: { params: { id: number } }
+) {
+  // 1. Fetch user from db
+  // 2. If not found, return 404
+  if (params.id > 10)
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  // 3. Delete the user
+  // 4. Return 200
+  return NextResponse.json({});
+}
